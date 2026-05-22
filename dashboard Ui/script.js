@@ -5,8 +5,20 @@
 const menuBtn = document.getElementById("menuBtn");
 const sidebar = document.getElementById("sidebar");
 
+// open/close sidebar
 menuBtn.addEventListener("click", () => {
   sidebar.classList.toggle("show");
+});
+
+// close sidebar when clicking outside (mobile UX)
+document.addEventListener("click", (e) => {
+  if (
+    window.innerWidth <= 992 &&
+    !sidebar.contains(e.target) &&
+    !menuBtn.contains(e.target)
+  ) {
+    sidebar.classList.remove("show");
+  }
 });
 
 // THEME TOGGLE
@@ -117,3 +129,132 @@ new Chart(doughnutCtx, {
     }
   }
 });
+
+// ===============================
+// REAL-TIME DASHBOARD ENGINE
+// ===============================
+
+// LIVE STATS
+const revenueEl = document.querySelector(".stat-card h3");
+const userEl = document.querySelectorAll(".stat-card h3")[1];
+const salesEl = document.querySelectorAll(".stat-card h3")[2];
+const perfEl = document.querySelectorAll(".stat-card h3")[3];
+
+function randomChange(base, variance) {
+  return Math.floor(base + (Math.random() - 0.5) * variance);
+}
+
+setInterval(() => {
+  // simulate real-time KPI updates
+  revenueEl.textContent = `$${randomChange(48920, 2000)}`;
+  userEl.textContent = `${randomChange(12400, 300)}K`;
+  salesEl.textContent = `${randomChange(3240, 120)}`;
+  perfEl.textContent = `${randomChange(89, 5)}%`;
+
+  addActivity("Live system update received");
+}, 3000);
+
+// ===============================
+// LIVE ACTIVITY FEED
+// ===============================
+
+const activityContainer = document.querySelector(".widget .activity-item").parentElement;
+
+function addActivity(text) {
+  const item = document.createElement("div");
+  item.className = "activity-item";
+
+  item.innerHTML = `
+    <div class="dot"></div>
+    <p>${text}</p>
+  `;
+
+  activityContainer.prepend(item);
+
+  // keep only latest 5 items
+  if (activityContainer.children.length > 5) {
+    activityContainer.removeChild(activityContainer.lastChild);
+  }
+}
+
+// initial fake stream
+setInterval(() => {
+  const logs = [
+    "New user signed up",
+    "Payment processed",
+    "Server sync completed",
+    "Analytics updated",
+    "New order received"
+  ];
+
+  const randomLog = logs[Math.floor(Math.random() * logs.length)];
+  addActivity(randomLog);
+
+}, 4000);
+
+// ===============================
+// LIVE CHART UPDATES
+// ===============================
+
+const lineChart = Chart.getChart("lineChart");
+
+setInterval(() => {
+  if (!lineChart) return;
+
+  lineChart.data.datasets[0].data.shift();
+  lineChart.data.datasets[0].data.push(Math.floor(Math.random() * 50 + 10));
+
+  lineChart.update();
+}, 2500);
+
+// ===============================
+// NOTIFICATION SYSTEM
+// ===============================
+
+function showToast(message) {
+  const toast = document.createElement("div");
+
+  toast.style.position = "fixed";
+  toast.style.top = "20px";
+  toast.style.right = "20px";
+  toast.style.background = "#4f46e5";
+  toast.style.color = "#fff";
+  toast.style.padding = "12px 18px";
+  toast.style.borderRadius = "12px";
+  toast.style.boxShadow = "0 10px 25px rgba(0,0,0,0.3)";
+  toast.style.zIndex = "9999";
+  toast.style.animation = "fadeIn 0.3s ease";
+
+  toast.textContent = message;
+
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.remove();
+  }, 3000);
+}
+
+// trigger notifications
+setInterval(() => {
+  const messages = [
+    "New user joined dashboard",
+    "Revenue updated",
+    "System sync completed",
+    "New transaction detected"
+  ];
+
+  showToast(messages[Math.floor(Math.random() * messages.length)]);
+}, 7000);
+
+// ===============================
+// ADD CSS ANIMATION (inject)
+// ===============================
+
+const style = document.createElement("style");
+style.innerHTML = `
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+`;
+document.head.appendChild(style);
