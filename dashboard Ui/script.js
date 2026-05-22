@@ -1,6 +1,8 @@
 // script.js
 
+// ===============================
 // SIDEBAR TOGGLE
+// ===============================
 
 const menuBtn = document.getElementById("menuBtn");
 const sidebar = document.getElementById("sidebar");
@@ -21,30 +23,88 @@ document.addEventListener("click", (e) => {
   }
 });
 
+// ===============================
+// SIDEBAR NAVIGATION SYSTEM
+// ===============================
+
+const navItems = document.querySelectorAll(".nav-item");
+const pages = document.querySelectorAll(".page");
+
+navItems.forEach(item => {
+
+  item.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    // remove active state
+    navItems.forEach(nav => {
+      nav.classList.remove("active");
+    });
+
+    // add active state
+    item.classList.add("active");
+
+    // get target page
+    const targetPage = item.getAttribute("data-page");
+
+    // hide all pages
+    pages.forEach(page => {
+      page.classList.remove("active");
+    });
+
+    // show selected page
+    const selectedPage = document.getElementById(
+      targetPage + "Page"
+    );
+
+    if (selectedPage) {
+      selectedPage.classList.add("active");
+    }
+
+    // auto close sidebar on mobile
+    if (window.innerWidth <= 992) {
+      sidebar.classList.remove("show");
+    }
+
+  });
+
+});
+
+// ===============================
 // THEME TOGGLE
+// ===============================
 
 const themeToggle = document.getElementById("themeToggle");
 
 themeToggle.addEventListener("click", () => {
+
   document.body.classList.toggle("light-mode");
 
   const icon = themeToggle.querySelector("i");
 
   if(document.body.classList.contains("light-mode")){
+
     icon.classList.remove("fa-moon");
     icon.classList.add("fa-sun");
+
   } else {
+
     icon.classList.remove("fa-sun");
     icon.classList.add("fa-moon");
+
   }
+
 });
 
+// ===============================
 // CHARTS
+// ===============================
 
 const lineCtx = document.getElementById("lineChart");
 
-new Chart(lineCtx, {
+const lineChart = new Chart(lineCtx, {
+
   type: "line",
+
   data: {
     labels: [
       "Jan",
@@ -55,6 +115,7 @@ new Chart(lineCtx, {
       "Jun",
       "Jul"
     ],
+
     datasets: [{
       label: "Revenue",
       data: [12,19,15,25,22,30,40],
@@ -65,8 +126,12 @@ new Chart(lineCtx, {
       pointRadius: 4
     }]
   },
+
   options: {
+
     responsive: true,
+    maintainAspectRatio: false,
+
     plugins: {
       legend: {
         labels: {
@@ -74,60 +139,92 @@ new Chart(lineCtx, {
         }
       }
     },
+
     scales: {
+
       y: {
         ticks: {
           color: "#9ca3af"
         },
+
         grid: {
           color: "rgba(255,255,255,0.05)"
         }
       },
+
       x: {
         ticks: {
           color: "#9ca3af"
         },
+
         grid: {
           display: false
         }
       }
+
     }
+
   }
+
 });
+
+// ===============================
+// DOUGHNUT CHART
+// ===============================
 
 const doughnutCtx = document.getElementById("doughnutChart");
 
 new Chart(doughnutCtx, {
+
   type: "doughnut",
+
   data: {
+
     labels: [
       "Social",
       "Direct",
       "Email",
       "Organic"
     ],
+
     datasets: [{
+
       data: [35,25,20,20],
+
       backgroundColor: [
         "#4f46e5",
         "#3b82f6",
         "#8b5cf6",
         "#10b981"
       ],
+
       borderWidth: 0
+
     }]
+
   },
+
   options: {
+
     responsive: true,
+    maintainAspectRatio: false,
+
     plugins: {
+
       legend: {
+
         position: "bottom",
+
         labels: {
           color: "#9ca3af"
         }
+
       }
+
     }
+
   }
+
 });
 
 // ===============================
@@ -135,33 +232,51 @@ new Chart(doughnutCtx, {
 // ===============================
 
 // LIVE STATS
-const revenueEl = document.querySelector(".stat-card h3");
+
+const revenueEl = document.querySelectorAll(".stat-card h3")[0];
 const userEl = document.querySelectorAll(".stat-card h3")[1];
 const salesEl = document.querySelectorAll(".stat-card h3")[2];
 const perfEl = document.querySelectorAll(".stat-card h3")[3];
 
 function randomChange(base, variance) {
-  return Math.floor(base + (Math.random() - 0.5) * variance);
+
+  return Math.floor(
+    base + (Math.random() - 0.5) * variance
+  );
+
 }
 
 setInterval(() => {
-  // simulate real-time KPI updates
-  revenueEl.textContent = `$${randomChange(48920, 2000)}`;
-  userEl.textContent = `${randomChange(12400, 300)}K`;
-  salesEl.textContent = `${randomChange(3240, 120)}`;
-  perfEl.textContent = `${randomChange(89, 5)}%`;
+
+  revenueEl.textContent =
+    `$${randomChange(48920, 2000)}`;
+
+  userEl.textContent =
+    `${randomChange(12400, 300)}K`;
+
+  salesEl.textContent =
+    `${randomChange(3240, 120)}`;
+
+  perfEl.textContent =
+    `${randomChange(89, 5)}%`;
 
   addActivity("Live system update received");
+
 }, 3000);
 
 // ===============================
 // LIVE ACTIVITY FEED
 // ===============================
 
-const activityContainer = document.querySelector(".widget .activity-item").parentElement;
+const activityContainer =
+document.querySelector(".widget");
 
 function addActivity(text) {
+
+  if (!activityContainer) return;
+
   const item = document.createElement("div");
+
   item.className = "activity-item";
 
   item.innerHTML = `
@@ -171,23 +286,34 @@ function addActivity(text) {
 
   activityContainer.prepend(item);
 
-  // keep only latest 5 items
-  if (activityContainer.children.length > 5) {
-    activityContainer.removeChild(activityContainer.lastChild);
+  // keep latest 5 items only
+  const items =
+    activityContainer.querySelectorAll(".activity-item");
+
+  if (items.length > 5) {
+    items[items.length - 1].remove();
   }
+
 }
 
-// initial fake stream
+// fake live stream
+
 setInterval(() => {
+
   const logs = [
     "New user signed up",
     "Payment processed",
     "Server sync completed",
     "Analytics updated",
-    "New order received"
+    "New order received",
+    "Project deployed successfully",
+    "Security scan completed",
+    "Customer profile updated"
   ];
 
-  const randomLog = logs[Math.floor(Math.random() * logs.length)];
+  const randomLog =
+    logs[Math.floor(Math.random() * logs.length)];
+
   addActivity(randomLog);
 
 }, 4000);
@@ -196,15 +322,18 @@ setInterval(() => {
 // LIVE CHART UPDATES
 // ===============================
 
-const lineChart = Chart.getChart("lineChart");
-
 setInterval(() => {
+
   if (!lineChart) return;
 
   lineChart.data.datasets[0].data.shift();
-  lineChart.data.datasets[0].data.push(Math.floor(Math.random() * 50 + 10));
+
+  lineChart.data.datasets[0].data.push(
+    Math.floor(Math.random() * 50 + 10)
+  );
 
   lineChart.update();
+
 }, 2500);
 
 // ===============================
@@ -212,49 +341,99 @@ setInterval(() => {
 // ===============================
 
 function showToast(message) {
+
   const toast = document.createElement("div");
 
-  toast.style.position = "fixed";
-  toast.style.top = "20px";
-  toast.style.right = "20px";
-  toast.style.background = "#4f46e5";
-  toast.style.color = "#fff";
-  toast.style.padding = "12px 18px";
-  toast.style.borderRadius = "12px";
-  toast.style.boxShadow = "0 10px 25px rgba(0,0,0,0.3)";
-  toast.style.zIndex = "9999";
-  toast.style.animation = "fadeIn 0.3s ease";
+  toast.className = "toast";
 
-  toast.textContent = message;
+  toast.innerHTML = `
+    <i class="fa-solid fa-bell"></i>
+    <span>${message}</span>
+  `;
 
   document.body.appendChild(toast);
 
   setTimeout(() => {
-    toast.remove();
+    toast.classList.add("show");
+  }, 100);
+
+  setTimeout(() => {
+
+    toast.classList.remove("show");
+
+    setTimeout(() => {
+      toast.remove();
+    }, 300);
+
   }, 3000);
+
 }
 
 // trigger notifications
+
 setInterval(() => {
+
   const messages = [
     "New user joined dashboard",
     "Revenue updated",
     "System sync completed",
-    "New transaction detected"
+    "New transaction detected",
+    "Project uploaded successfully",
+    "Analytics refreshed"
   ];
 
-  showToast(messages[Math.floor(Math.random() * messages.length)]);
+  showToast(
+    messages[
+      Math.floor(Math.random() * messages.length)
+    ]
+  );
+
 }, 7000);
 
 // ===============================
-// ADD CSS ANIMATION (inject)
+// TOAST STYLES
 // ===============================
 
 const style = document.createElement("style");
+
 style.innerHTML = `
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+
+.toast{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #4f46e5;
+  color: white;
+  padding: 14px 18px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  z-index: 9999;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: 0.3s ease;
+  font-weight: 500;
 }
+
+.toast.show{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform:translateY(-10px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
 `;
+
 document.head.appendChild(style);
