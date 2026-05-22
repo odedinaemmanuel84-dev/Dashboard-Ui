@@ -35,37 +35,37 @@
 
       <nav class="nav-links">
 
-        <a href="#" class="nav-item active">
+        <a href="#" class="nav-item active" data-page="dashboard">
           <i class="fa-solid fa-chart-pie"></i>
           <span>Dashboard</span>
         </a>
 
-        <a href="#" class="nav-item">
+        <a href="#" class="nav-item" data-page="customers">
           <i class="fa-solid fa-users"></i>
           <span>Customers</span>
         </a>
 
-        <a href="#" class="nav-item">
+        <a href="#" class="nav-item" data-page="orders">
           <i class="fa-solid fa-cart-shopping"></i>
           <span>Orders</span>
         </a>
 
-        <a href="#" class="nav-item">
+        <a href="#" class="nav-item" data-page="analytics">
           <i class="fa-solid fa-chart-line"></i>
           <span>Analytics</span>
         </a>
 
-        <a href="#" class="nav-item">
+        <a href="#" class="nav-item" data-page="calendar">
           <i class="fa-solid fa-calendar"></i>
           <span>Calendar</span>
         </a>
 
-        <a href="#" class="nav-item">
+        <a href="#" class="nav-item" data-page="projects">
           <i class="fa-solid fa-folder"></i>
           <span>Projects</span>
         </a>
 
-        <a href="#" class="nav-item">
+        <a href="#" class="nav-item" data-page="settings">
           <i class="fa-solid fa-gear"></i>
           <span>Settings</span>
         </a>
@@ -104,10 +104,7 @@
           </button>
 
           <div class="profile">
-            <img
-              src="https://i.pravatar.cc/100"
-              alt="profile"
-            />
+            <img src="https://i.pravatar.cc/100" alt="profile" />
             <div>
               <h4>Emmanuel</h4>
               <p>Frontend Dev</p>
@@ -118,322 +115,215 @@
 
       </header>
 
-      <!-- HERO -->
-      <section class="hero-card glass">
-        <div>
-          <h1>Welcome Back 👋</h1>
-          <p>
-            Monitor your analytics, track productivity,
-            and manage your team in one powerful dashboard.
-          </p>
+      <!-- DASHBOARD PAGE -->
+      <section class="page active" id="dashboardPage">
 
-          <button class="primary-btn">
-            View Reports
-          </button>
-        </div>
-
-        <div class="hero-circle"></div>
-      </section>
-
-      <!-- STATS -->
-      <section class="stats-grid">
-
-        <div class="stat-card glass">
-          <div class="stat-icon blue">
-            <i class="fa-solid fa-dollar-sign"></i>
-          </div>
-
+        <!-- HERO -->
+        <section class="hero-card glass">
           <div>
-            <h3>$48,920</h3>
-            <p>Revenue</p>
+            <h1>Welcome Back 👋</h1>
+            <p>
+              Monitor your analytics, track productivity,
+              and manage your team in one powerful dashboard.
+            </p>
+
+            <button class="primary-btn">
+              View Reports
+            </button>
           </div>
 
-          <span class="badge positive">
-            +12%
-          </span>
-        </div>
+          <div class="hero-circle"></div>
+        </section>
 
-        <div class="stat-card glass">
-          <div class="stat-icon purple">
-            <i class="fa-solid fa-users"></i>
+        <!-- STATS -->
+        <section class="stats-grid">
+
+          <div class="stat-card glass">
+            <div class="stat-icon blue">
+              <i class="fa-solid fa-dollar-sign"></i>
+            </div>
+
+            <div>
+              <h3>$48,920</h3>
+              <p>Revenue</p>
+            </div>
+
+            <span class="badge positive">+12%</span>
           </div>
 
-          <div>
-            <h3>12.4K</h3>
-            <p>Users</p>
+          <div class="stat-card glass">
+            <div class="stat-icon purple">
+              <i class="fa-solid fa-users"></i>
+            </div>
+
+            <div>
+              <h3>12.4K</h3>
+              <p>Users</p>
+            </div>
+
+            <span class="badge positive">+8%</span>
           </div>
 
-          <span class="badge positive">
-            +8%
-          </span>
-        </div>
+          <div class="stat-card glass">
+            <div class="stat-icon orange">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </div>
 
-        <div class="stat-card glass">
-          <div class="stat-icon orange">
-            <i class="fa-solid fa-cart-shopping"></i>
+            <div>
+              <h3>3,240</h3>
+              <p>Sales</p>
+            </div>
+
+            <span class="badge negative">-2%</span>
           </div>
 
-          <div>
-            <h3>3,240</h3>
-            <p>Sales</p>
+          <div class="stat-card glass">
+            <div class="stat-icon green">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+
+            <div>
+              <h3>89%</h3>
+              <p>Performance</p>
+            </div>
+
+            <span class="badge positive">+16%</span>
           </div>
 
-          <span class="badge negative">
-            -2%
-          </span>
-        </div>
+        </section>
 
-        <div class="stat-card glass">
-          <div class="stat-icon green">
-            <i class="fa-solid fa-chart-line"></i>
+        <!-- CHARTS -->
+        <section class="charts-grid">
+
+          <div class="chart-card glass">
+            <div class="card-header">
+              <h3>Revenue Analytics</h3>
+              <button>Monthly</button>
+            </div>
+
+            <canvas id="lineChart"></canvas>
           </div>
 
-          <div>
-            <h3>89%</h3>
-            <p>Performance</p>
+          <div class="chart-card glass">
+            <div class="card-header">
+              <h3>Traffic Sources</h3>
+            </div>
+
+            <canvas id="doughnutChart"></canvas>
           </div>
 
-          <span class="badge positive">
-            +16%
-          </span>
-        </div>
+        </section>
 
-      </section>
+        <!-- CONTENT GRID -->
+        <section class="content-grid">
 
-      <!-- CHARTS -->
-      <section class="charts-grid">
+          <!-- TABLE -->
+          <div class="table-card glass">
+            <div class="card-header">
+              <h3>Recent Transactions</h3>
 
-        <div class="chart-card glass">
-          <div class="card-header">
-            <h3>Revenue Analytics</h3>
-            <button>Monthly</button>
-          </div>
+              <div class="table-actions">
+                <button>Filter</button>
+                <button>Sort</button>
+              </div>
+            </div>
 
-          <canvas id="lineChart"></canvas>
-        </div>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Customer</th>
+                    <th>Order ID</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
 
-        <div class="chart-card glass">
-          <div class="card-header">
-            <h3>Traffic Sources</h3>
-          </div>
+                <tbody>
+                  <tr>
+                    <td>Michael Scott</td>
+                    <td>#1042</td>
+                    <td>$240</td>
+                    <td><span class="status completed">Completed</span></td>
+                  </tr>
 
-          <canvas id="doughnutChart"></canvas>
-        </div>
+                  <tr>
+                    <td>Sarah Wilson</td>
+                    <td>#1043</td>
+                    <td>$420</td>
+                    <td><span class="status pending">Pending</span></td>
+                  </tr>
 
-      </section>
+                  <tr>
+                    <td>Daniel James</td>
+                    <td>#1044</td>
+                    <td>$125</td>
+                    <td><span class="status cancelled">Cancelled</span></td>
+                  </tr>
 
-      <!-- CONTENT GRID -->
-      <section class="content-grid">
+                  <tr>
+                    <td>Olivia Smith</td>
+                    <td>#1045</td>
+                    <td>$950</td>
+                    <td><span class="status completed">Completed</span></td>
+                  </tr>
+                </tbody>
 
-        <!-- TABLE -->
-        <div class="table-card glass">
-
-          <div class="card-header">
-            <h3>Recent Transactions</h3>
-
-            <div class="table-actions">
-              <button>Filter</button>
-              <button>Sort</button>
+              </table>
             </div>
           </div>
 
-          <div class="table-wrapper">
+          <!-- SIDE WIDGETS -->
+          <div class="widgets">
 
-            <table>
-
-              <thead>
-                <tr>
-                  <th>Customer</th>
-                  <th>Order ID</th>
-                  <th>Amount</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-
-              <tbody>
-
-                <tr>
-                  <td>Michael Scott</td>
-                  <td>#1042</td>
-                  <td>$240</td>
-                  <td>
-                    <span class="status completed">
-                      Completed
-                    </span>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>Sarah Wilson</td>
-                  <td>#1043</td>
-                  <td>$420</td>
-                  <td>
-                    <span class="status pending">
-                      Pending
-                    </span>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>Daniel James</td>
-                  <td>#1044</td>
-                  <td>$125</td>
-                  <td>
-                    <span class="status cancelled">
-                      Cancelled
-                    </span>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>Olivia Smith</td>
-                  <td>#1045</td>
-                  <td>$950</td>
-                  <td>
-                    <span class="status completed">
-                      Completed
-                    </span>
-                  </td>
-                </tr>
-
-              </tbody>
-
-            </table>
-
-          </div>
-
-        </div>
-
-        <!-- SIDE WIDGETS -->
-        <div class="widgets">
-
-          <!-- TEAM -->
-          <div class="widget glass">
-            <div class="card-header">
+            <div class="widget glass">
               <h3>Team Members</h3>
-            </div>
 
-            <div class="team-member">
-              <img src="https://i.pravatar.cc/101" />
-              <div>
-                <h4>David</h4>
-                <p>UI Designer</p>
+              <div class="team-member">
+                <img src="https://i.pravatar.cc/101" />
+                <div>
+                  <h4>David</h4>
+                  <p>UI Designer</p>
+                </div>
               </div>
-            </div>
 
-            <div class="team-member">
-              <img src="https://i.pravatar.cc/102" />
-              <div>
-                <h4>Jennifer</h4>
-                <p>Backend Dev</p>
+              <div class="team-member">
+                <img src="https://i.pravatar.cc/102" />
+                <div>
+                  <h4>Jennifer</h4>
+                  <p>Backend Dev</p>
+                </div>
               </div>
-            </div>
 
-            <div class="team-member">
-              <img src="https://i.pravatar.cc/103" />
-              <div>
-                <h4>Alex</h4>
-                <p>Project Manager</p>
+              <div class="team-member">
+                <img src="https://i.pravatar.cc/103" />
+                <div>
+                  <h4>Alex</h4>
+                  <p>Project Manager</p>
+                </div>
               </div>
+
             </div>
 
           </div>
 
-          <!-- TASK -->
-          <div class="widget glass">
-            <div class="card-header">
-              <h3>Task Progress</h3>
-            </div>
-
-            <div class="progress-item">
-              <div class="progress-top">
-                <span>Dashboard Design</span>
-                <span>90%</span>
-              </div>
-
-              <div class="progress-bar">
-                <div style="width:90%"></div>
-              </div>
-            </div>
-
-            <div class="progress-item">
-              <div class="progress-top">
-                <span>API Integration</span>
-                <span>65%</span>
-              </div>
-
-              <div class="progress-bar">
-                <div style="width:65%"></div>
-              </div>
-            </div>
-
-            <div class="progress-item">
-              <div class="progress-top">
-                <span>Testing</span>
-                <span>45%</span>
-              </div>
-
-              <div class="progress-bar">
-                <div style="width:45%"></div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- ACTIVITY -->
-          <div class="widget glass">
-            <div class="card-header">
-              <h3>Activity</h3>
-            </div>
-
-            <div class="activity-item">
-              <div class="dot"></div>
-              <p>New user registered</p>
-            </div>
-
-            <div class="activity-item">
-              <div class="dot"></div>
-              <p>Payment received</p>
-            </div>
-
-            <div class="activity-item">
-              <div class="dot"></div>
-              <p>Project updated</p>
-            </div>
-
-          </div>
-
-          <!-- CALENDAR -->
-          <div class="widget glass">
-            <div class="card-header">
-              <h3>Schedule</h3>
-            </div>
-
-            <div class="calendar-box">
-              <h2>19</h2>
-              <p>May 2026</p>
-
-              <div class="meeting">
-                <span>10:00 AM</span>
-                <p>Design Meeting</p>
-              </div>
-
-              <div class="meeting">
-                <span>2:30 PM</span>
-                <p>Client Presentation</p>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
+        </section>
 
       </section>
+
+      <!-- OTHER PAGES -->
+      <section class="page" id="customersPage"><h2>Customers</h2></section>
+      <section class="page" id="ordersPage"><h2>Orders</h2></section>
+      <section class="page" id="analyticsPage"><h2>Analytics</h2></section>
+      <section class="page" id="calendarPage"><h2>Calendar</h2></section>
+      <section class="page" id="projectsPage"><h2>Projects</h2></section>
+      <section class="page" id="settingsPage"><h2>Settings</h2></section>
 
     </main>
 
   </div>
 
   <script src="script.js"></script>
+
 </body>
-                        </html>
+  </html>
