@@ -1,7 +1,6 @@
 // script.js
 
 // SIDEBAR TOGGLE
-
 const menuBtn = document.getElementById("menuBtn");
 const sidebar = document.getElementById("sidebar");
 
@@ -258,27 +257,3 @@ style.innerHTML = `
 }
 `;
 document.head.appendChild(style);
-
-const navItems = document.querySelectorAll(".nav-item");
-const pages = document.querySelectorAll(".page");
-
-navItems.forEach(item => {
-  item.addEventListener("click", (e) => {
-    e.preventDefault();
-
-    // remove active from all menu items
-    navItems.forEach(i => i.classList.remove("active"));
-    item.classList.add("active");
-
-    const target = item.getAttribute("data-page");
-
-    // hide all pages
-    pages.forEach(page => page.classList.remove("active"));
-
-    // show selected page
-    document.getElementById(target + "Page").classList.add("active");
-
-    // close sidebar on mobile
-    sidebar.classList.remove("show");
-  });
-});
