@@ -5,8 +5,20 @@
 const menuBtn = document.getElementById("menuBtn");
 const sidebar = document.getElementById("sidebar");
 
+// open/close sidebar
 menuBtn.addEventListener("click", () => {
   sidebar.classList.toggle("show");
+});
+
+// close sidebar when clicking outside (mobile UX)
+document.addEventListener("click", (e) => {
+  if (
+    window.innerWidth <= 992 &&
+    !sidebar.contains(e.target) &&
+    !menuBtn.contains(e.target)
+  ) {
+    sidebar.classList.remove("show");
+  }
 });
 
 // THEME TOGGLE
